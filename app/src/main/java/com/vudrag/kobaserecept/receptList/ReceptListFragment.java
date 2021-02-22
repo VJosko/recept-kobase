@@ -59,7 +59,6 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
         recyclerView.setAdapter(mAdapter);
 
         Observer receptObserver = o -> {
-            Log.d("TAG", "onCreateView: UPDATE___________");
             mAdapter.notifyDataSetChanged();
         };
         viewModel.recepti.observe(getViewLifecycleOwner(), receptObserver);
