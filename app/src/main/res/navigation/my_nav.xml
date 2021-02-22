@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/receptListFragment">
+
+    <fragment
+        android:id="@+id/receptFragment"
+        android:name="com.vudrag.kobaserecept.recept.receptFragment"
+        android:label="fragment_recepti"
+        tools:layout="@layout/fragment_recepti" >
+        <action
+            android:id="@+id/action_receptFragment_to_receptListFragment"
+            app:destination="@id/receptListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kalkulatorFragment"
+        android:name="com.vudrag.kobaserecept.kalkulator.KalkulatorFragment"
+        android:label="fragment_kalkulator"
+        tools:layout="@layout/fragment_kalkulator" >
+        <action
+            android:id="@+id/action_kalkulatorFragment_to_receptListFragment"
+            app:destination="@id/receptListFragment" />
+        <argument
+            android:name="receptId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/receptListFragment"
+        android:name="com.vudrag.kobaserecept.receptList.ReceptListFragment"
+        android:label="fragment_recept_list"
+        tools:layout="@layout/fragment_recept_list" >
+        <action
+            android:id="@+id/action_receptListFragment_to_kalkulatorFragment"
+            app:destination="@id/kalkulatorFragment" />
+        <action
+            android:id="@+id/action_receptListFragment_to_receptFragment"
+            app:destination="@id/receptFragment" />
+    </fragment>
+</navigation>
