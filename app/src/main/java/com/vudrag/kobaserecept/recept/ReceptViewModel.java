@@ -3,7 +3,9 @@ package com.vudrag.kobaserecept.recept;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.vudrag.kobaserecept.Recept;
 import com.vudrag.kobaserecept.ReceptInfo;
+import com.vudrag.kobaserecept.Repository;
 import com.vudrag.kobaserecept.Sastojak;
 
 import java.text.SimpleDateFormat;
@@ -14,8 +16,10 @@ public class ReceptViewModel extends ViewModel {
 
     MutableLiveData<ArrayList<Sastojak>> sastojci = new MutableLiveData<>();
     public String ime = "";
+    Repository repository;
 
     public ReceptViewModel() {
+        repository = Repository.getInstance();
         ArrayList<Sastojak> s = new ArrayList<>();
         s.add(new Sastojak("", "0",0));
         sastojci.setValue(s);
@@ -31,6 +35,7 @@ public class ReceptViewModel extends ViewModel {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         ReceptInfo receptInfo = new ReceptInfo(0,ime,dateFormat.format(date),dateFormat.format(date),"");
-        //TODO: spremiti
+        Recept recept = new Recept(receptInfo,sastojci.getValue());
+        repository.addRecept(recept);
     }
 }

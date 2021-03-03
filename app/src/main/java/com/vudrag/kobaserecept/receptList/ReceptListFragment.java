@@ -68,6 +68,8 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
 
     @Override
     public void onReceptClick(int position) {
-        Navigation.findNavController(getView()).navigate(R.id.action_receptListFragment_to_kalkulatorFragment);
+        ReceptListFragmentDirections.ActionReceptListFragmentToKalkulatorFragment action = ReceptListFragmentDirections.actionReceptListFragmentToKalkulatorFragment();
+        action.setReceptId(position);
+        Navigation.findNavController(getView()).navigate(action);
     }
 }

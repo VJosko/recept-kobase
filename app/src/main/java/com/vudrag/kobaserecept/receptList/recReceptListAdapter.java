@@ -9,12 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vudrag.kobaserecept.R;
+import com.vudrag.kobaserecept.Recept;
 import com.vudrag.kobaserecept.ReceptInfo;
 
 import java.util.ArrayList;
 
 public class recReceptListAdapter extends RecyclerView.Adapter<recReceptListAdapter.ViewHolder> {
-    private ArrayList<ReceptInfo> recepti;
+    private ArrayList<Recept> recepti;
     private OnReceptListener mOnReceptiListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -37,7 +38,7 @@ public class recReceptListAdapter extends RecyclerView.Adapter<recReceptListAdap
         }
     }
 
-    public recReceptListAdapter(ArrayList<ReceptInfo> recepti, OnReceptListener onReceptListener){
+    public recReceptListAdapter(ArrayList<Recept> recepti, OnReceptListener onReceptListener){
         this.recepti = recepti;
         this.mOnReceptiListener = onReceptListener;
     }
@@ -52,8 +53,8 @@ public class recReceptListAdapter extends RecyclerView.Adapter<recReceptListAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvIme.setText(recepti.get(position).getIme());
-        holder.tvDatum.setText(recepti.get(position).getDatumIzmjene());
+        holder.tvIme.setText(recepti.get(position).getReceptInfo().getIme());
+        holder.tvDatum.setText(recepti.get(position).getReceptInfo().getDatumIzmjene());
     }
 
     @Override

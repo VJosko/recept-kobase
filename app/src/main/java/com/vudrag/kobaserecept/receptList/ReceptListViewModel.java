@@ -7,29 +7,20 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 
+import com.vudrag.kobaserecept.Recept;
 import com.vudrag.kobaserecept.ReceptInfo;
+import com.vudrag.kobaserecept.Repository;
 
 import java.util.ArrayList;
 
 public class ReceptListViewModel extends ViewModel {
 
-    public void onAdd(){
-        Log.d("TAG", "onAdd: ________________");
-    }
+    Repository repository;
 
-    public MutableLiveData<ArrayList<ReceptInfo >> recepti = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<Recept>> recepti = new MutableLiveData<>();
 
     public ReceptListViewModel() {
-        ArrayList<ReceptInfo> lRecepti = new ArrayList<>();
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        lRecepti.add(new ReceptInfo(1,"Prvi recept","1.1.1.","2.2.2","nema"));
-        recepti.setValue(lRecepti);
+        repository = Repository.getInstance();
+        recepti.setValue(repository.getRecepte());
     }
 }
