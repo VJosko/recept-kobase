@@ -9,8 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vudrag.kobaserecept.R;
-import com.vudrag.kobaserecept.Recept;
-import com.vudrag.kobaserecept.ReceptInfo;
+import com.vudrag.kobaserecept.classes.Recept;
 
 import java.util.ArrayList;
 

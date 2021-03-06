@@ -4,7 +4,7 @@
     <data>
         <variable
             name="sastojak"
-            type="com.vudrag.kobaserecept.Sastojak" />
+            type="com.vudrag.kobaserecept.classes.Sastojak" />
     </data>
 
     <LinearLayout

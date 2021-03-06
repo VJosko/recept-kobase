@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vudrag.kobaserecept.Sastojak;
+import com.vudrag.kobaserecept.classes.Sastojak;
 import com.vudrag.kobaserecept.databinding.ReceptRowBinding;
 
 import java.util.ArrayList;

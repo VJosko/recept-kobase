@@ -1,5 +1,6 @@
 package com.vudrag.kobaserecept.kalkulator;
 
+import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vudrag.kobaserecept.R;
-import com.vudrag.kobaserecept.Recept;
-import com.vudrag.kobaserecept.Repository;
-import com.vudrag.kobaserecept.Sastojak;
+import com.vudrag.kobaserecept.classes.Sastojak;
 import com.vudrag.kobaserecept.databinding.FragmentKalkulatorBinding;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 
 public class KalkulatorFragment extends Fragment {

@@ -1,12 +1,12 @@
 package com.vudrag.kobaserecept.receptList;
 
+import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -19,12 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vudrag.kobaserecept.R;
-import com.vudrag.kobaserecept.ReceptInfo;
 import com.vudrag.kobaserecept.databinding.FragmentReceptListBinding;
-import com.vudrag.kobaserecept.recept.recReceptAdapter;
-
-import java.util.ArrayList;
-import java.util.Observable;
 
 
 public class ReceptListFragment extends Fragment implements recReceptListAdapter.OnReceptListener {
@@ -45,6 +40,7 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
 
         //ViewModel
         viewModel = new ViewModelProvider(this).get(ReceptListViewModel.class);
+        viewModel.setContext(getContext().getApplicationContext());
         binding.setViewModel(viewModel);
 
         binding.btnNewRecept.setOnClickListener(v -> {
@@ -58,10 +54,16 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
         mAdapter = new recReceptListAdapter(viewModel.recepti.getValue(), this);
         recyclerView.setAdapter(mAdapter);
 
-        Observer receptObserver = o -> {
+//        Observer receptObserver = o -> {
+//            mAdapter.notifyDataSetChanged();
+//        };
+//        viewModel.recepti.observe(getViewLifecycleOwner(), receptObserver);
+
+        Observer receptObserver1 = o -> {
+            viewModel.updateReceptArray();
             mAdapter.notifyDataSetChanged();
         };
-        viewModel.recepti.observe(getViewLifecycleOwner(), receptObserver);
+        viewModel._recepti.observe(getViewLifecycleOwner(), receptObserver1);
 
         return view;
     }

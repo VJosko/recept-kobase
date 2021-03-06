@@ -1,13 +1,18 @@
-package com.vudrag.kobaserecept;
+package com.vudrag.kobaserecept.classes;
+
+import androidx.room.Embedded;
+import androidx.room.Relation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Recept {
-
+    @Embedded
     ReceptInfo receptInfo;
-    ArrayList<Sastojak> sastojci;
+    @Relation(parentColumn = "id", entityColumn = "id")
+    List<Sastojak> sastojci;
 
-    public Recept(ReceptInfo receptInfo, ArrayList<Sastojak> sastojci) {
+    public Recept(ReceptInfo receptInfo, List<Sastojak> sastojci) {
         this.receptInfo = receptInfo;
         this.sastojci = sastojci;
     }
@@ -20,7 +25,7 @@ public class Recept {
         this.receptInfo = receptInfo;
     }
 
-    public ArrayList<Sastojak> getSastojci() {
+    public List<Sastojak> getSastojci() {
         return sastojci;
     }
 

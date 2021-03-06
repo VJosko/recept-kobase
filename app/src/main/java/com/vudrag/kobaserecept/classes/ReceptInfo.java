@@ -1,26 +1,29 @@
-package com.vudrag.kobaserecept;
+package com.vudrag.kobaserecept.classes;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "info_table")
 public class ReceptInfo {
-
-    int id;
+    @PrimaryKey(autoGenerate = true)
+    Long id;
     String ime;
     String datumIzrade;
     String datumIzmjene;
     String komentar;
 
-    public ReceptInfo(int id, String ime, String datumIzrade, String datumIzmjene, String komentar) {
-        this.id = id;
+    public ReceptInfo(String ime, String datumIzrade, String datumIzmjene, String komentar) {
         this.ime = ime;
         this.datumIzrade = datumIzrade;
         this.datumIzmjene = datumIzmjene;
         this.komentar = komentar;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

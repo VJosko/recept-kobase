@@ -1,5 +1,7 @@
 package com.vudrag.kobaserecept.kalkulator;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;

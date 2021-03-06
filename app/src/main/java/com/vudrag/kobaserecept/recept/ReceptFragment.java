@@ -16,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vudrag.kobaserecept.R;
-import com.vudrag.kobaserecept.Sastojak;
+import com.vudrag.kobaserecept.classes.Sastojak;
 import com.vudrag.kobaserecept.databinding.FragmentReceptiBinding;
+import com.vudrag.kobaserecept.kalkulator.KalkulatorFragmentArgs;
+import com.vudrag.kobaserecept.kalkulator.KalkulatorViewModelFactory;
 
 import java.util.ArrayList;
 
