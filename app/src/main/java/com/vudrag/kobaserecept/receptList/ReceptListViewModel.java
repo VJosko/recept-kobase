@@ -38,4 +38,8 @@ public class ReceptListViewModel extends ViewModel {
             recepti.getValue().add(recept);
         }
     }
+
+    public void deleteRecept(int position){
+        repository.deleteRecept(recepti.getValue().get(position).getReceptInfo());
+    }
 }

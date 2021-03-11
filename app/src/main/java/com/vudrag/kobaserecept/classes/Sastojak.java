@@ -4,15 +4,13 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-/*, foreignKeys = {@ForeignKey(
+@Entity(tableName = "sastojak_table", foreignKeys = {@ForeignKey(
         entity = ReceptInfo.class,
         childColumns = "id",
         parentColumns = "id",
         onDelete = ForeignKey.CASCADE,
         onUpdate = ForeignKey.CASCADE
-)}*/
-
-@Entity(tableName = "sastojak_table")
+)})
 public class Sastojak{
 
     @PrimaryKey(autoGenerate = true)

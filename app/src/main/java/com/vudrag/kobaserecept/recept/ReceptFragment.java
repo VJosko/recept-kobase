@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,15 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vudrag.kobaserecept.R;
-import com.vudrag.kobaserecept.classes.Sastojak;
 import com.vudrag.kobaserecept.databinding.FragmentReceptiBinding;
-import com.vudrag.kobaserecept.kalkulator.KalkulatorFragmentArgs;
-import com.vudrag.kobaserecept.kalkulator.KalkulatorViewModelFactory;
-
-import java.util.ArrayList;
+import com.vudrag.kobaserecept.ReceptListItemTouchHelper;
 
 
-public class ReceptFragment extends Fragment {
+public class ReceptFragment extends Fragment implements recReceptAdapter.OnSastojakListener {
 
     private ReceptViewModel viewModel;
 
@@ -48,12 +44,23 @@ public class ReceptFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rec_novi_recept);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new recReceptAdapter(viewModel.sastojci.getValue());
+        mAdapter = new recReceptAdapter(viewModel.sastojci.getValue(), this);
+
+        ItemTouchHelper.Callback callback = new ReceptListItemTouchHelper(mAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        mAdapter.setTouchHelper(itemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
         recyclerView.setAdapter(mAdapter);
 
-        Observer<ArrayList<Sastojak>> sastojciObserver = sastojaks -> mAdapter.notifyDataSetChanged();
-        viewModel.sastojci.observe(getViewLifecycleOwner(),sastojciObserver);
+
+        viewModel.sastojci.observe(getViewLifecycleOwner(),o -> mAdapter.notifyDataSetChanged());
 
         return view;
+    }
+
+    @Override
+    public void onSastojakDelete(int position) {
+        viewModel.onDeleteSastojak(position);
     }
 }

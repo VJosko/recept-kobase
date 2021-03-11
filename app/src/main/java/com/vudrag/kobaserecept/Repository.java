@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import com.vudrag.kobaserecept.classes.Recept;
+import com.vudrag.kobaserecept.classes.ReceptInfo;
 import com.vudrag.kobaserecept.classes.Sastojak;
 import com.vudrag.kobaserecept.room.ReceptDatabase;
 
@@ -46,6 +47,10 @@ public class Repository {
             sastojak.setId(id);
             receptDatabase.dao().insertSastojak(sastojak);
         }
+    }
+
+    public void deleteRecept(ReceptInfo receptInfo){
+        receptDatabase.dao().deleteInfo(receptInfo);
     }
 
     public ArrayList<Recept> getRecepte(){

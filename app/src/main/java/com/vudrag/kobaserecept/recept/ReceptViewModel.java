@@ -46,4 +46,8 @@ public class ReceptViewModel extends ViewModel {
         Recept recept = new Recept(receptInfo,sastojci.getValue());
         repository.addRecept(recept);
     }
+
+    public void onDeleteSastojak(int position){
+        sastojci.getValue().remove(position);
+    }
 }

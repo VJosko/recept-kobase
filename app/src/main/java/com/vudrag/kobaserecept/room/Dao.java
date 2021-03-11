@@ -1,6 +1,7 @@
 package com.vudrag.kobaserecept.room;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -26,5 +27,8 @@ public interface Dao {
 
     @Query("SELECT * FROM sastojak_table")
     List<Sastojak> getSastojak();
+
+    @Delete
+    void deleteInfo(ReceptInfo receptInfo);
 
 }

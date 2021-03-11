@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.vudrag.kobaserecept.classes.ReceptInfo;
 import com.vudrag.kobaserecept.classes.Sastojak;
 
-@Database(entities = {ReceptInfo.class, Sastojak.class}, exportSchema = false, version = 5)
+@Database(entities = {ReceptInfo.class, Sastojak.class}, exportSchema = false, version = 6)
 public abstract class ReceptDatabase extends RoomDatabase {
 
     private static ReceptDatabase INSTANCE;

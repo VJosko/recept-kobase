@@ -1,6 +1,5 @@
 package com.vudrag.kobaserecept.receptList;
 
-import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,15 +9,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.vudrag.kobaserecept.R;
+import com.vudrag.kobaserecept.ReceptListItemTouchHelper;
 import com.vudrag.kobaserecept.databinding.FragmentReceptListBinding;
 
 
@@ -52,18 +52,20 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new recReceptListAdapter(viewModel.recepti.getValue(), this);
+
+        ItemTouchHelper.Callback callback = new ReceptListItemTouchHelper(mAdapter);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
+        mAdapter.setTouchHelper(itemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
         recyclerView.setAdapter(mAdapter);
 
-//        Observer receptObserver = o -> {
-//            mAdapter.notifyDataSetChanged();
-//        };
-//        viewModel.recepti.observe(getViewLifecycleOwner(), receptObserver);
 
-        Observer receptObserver1 = o -> {
+        Observer receptObserver = o -> {
             viewModel.updateReceptArray();
             mAdapter.notifyDataSetChanged();
         };
-        viewModel._recepti.observe(getViewLifecycleOwner(), receptObserver1);
+        viewModel._recepti.observe(getViewLifecycleOwner(), receptObserver);
 
         return view;
     }
@@ -74,4 +76,11 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
         action.setReceptId(position);
         Navigation.findNavController(getView()).navigate(action);
     }
+
+    @Override
+    public void onReceptDelete(int position) {
+        viewModel.deleteRecept(position);
+    }
+
+
 }
