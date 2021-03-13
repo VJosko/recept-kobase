@@ -102,7 +102,7 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
     @Override
     public void onReceptEdit(int position) {
         ReceptListFragmentDirections.ActionReceptListFragmentToReceptFragment action = ReceptListFragmentDirections.actionReceptListFragmentToReceptFragment();
-        action.setPosition(-1);
+        action.setPosition(position);
         Navigation.findNavController(getView()).navigate(action);
     }
 

@@ -18,36 +18,43 @@ import java.util.Date;
 public class ReceptViewModel extends ViewModel {
 
     private Context context;
+    private int position;
     MutableLiveData<ArrayList<Sastojak>> sastojci = new MutableLiveData<>();
     public String ime = "";
     Repository repository;
 
     public ReceptViewModel(int position) {
+        this.position = position;
         repository = Repository.getInstance();
-        ArrayList<Sastojak> s = new ArrayList<>();
-        s.add(new Sastojak("", "0"));
-        sastojci.setValue(s);
+        if (position == -1) {
+            ArrayList<Sastojak> s = new ArrayList<>();
+            s.add(new Sastojak("", "0"));
+            sastojci.setValue(s);
+        }
+        else{
+            sastojci.setValue((ArrayList<Sastojak>) repository.getLiveRecept().getValue().get(position).getSastojci());
+        }
     }
 
     public void setContext(Context context) {
         this.context = context;
     }
 
-    public void onAddSastojak(){
+    public void onAddSastojak() {
         Sastojak sastojak = new Sastojak("", "0");
         sastojci.getValue().add(sastojak);
         sastojci.setValue(sastojci.getValue());
     }
 
-    public void onSpremiRecept(){
+    public void onSpremiRecept() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        ReceptInfo receptInfo = new ReceptInfo(ime,dateFormat.format(date),dateFormat.format(date),"");
-        Recept recept = new Recept(receptInfo,sastojci.getValue());
+        ReceptInfo receptInfo = new ReceptInfo(ime, dateFormat.format(date), dateFormat.format(date), "");
+        Recept recept = new Recept(receptInfo, sastojci.getValue());
         repository.addRecept(recept);
     }
 
-    public void onDeleteSastojak(int position){
+    public void onDeleteSastojak(int position) {
         sastojci.getValue().remove(position);
     }
 }

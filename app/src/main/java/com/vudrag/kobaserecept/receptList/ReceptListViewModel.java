@@ -2,6 +2,7 @@ package com.vudrag.kobaserecept.receptList;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,6 +14,8 @@ import com.vudrag.kobaserecept.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class ReceptListViewModel extends ViewModel {
 
@@ -34,6 +37,9 @@ public class ReceptListViewModel extends ViewModel {
 
     public void updateReceptArray(){
         recepti.getValue().clear();
+        if(repository.getLiveRecept().getValue() == null){
+            Log.d(TAG, "updateReceptArray: _______NULL");
+        }
         for(Recept recept: repository.getLiveRecept().getValue()){
             recepti.getValue().add(recept);
         }

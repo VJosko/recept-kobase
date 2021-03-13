@@ -1,40 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="recept"
             type="com.vudrag.kobaserecept.classes.Recept" />
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/design_default_color_surface">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_ime"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@={recept.receptInfo.ime}"/>
+                android:layout_weight="1"
+                android:text="@={recept.receptInfo.ime}"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_datum"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:textSize="16sp"
                 android:layout_height="wrap_content"
-                android:text="@={recept.receptInfo.datumIzmjene}"/>
+                android:layout_weight="1"
+                android:text="@={recept.receptInfo.datumIzmjene}"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/btn_edit"
@@ -44,10 +49,5 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#FF555555" />
-
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
