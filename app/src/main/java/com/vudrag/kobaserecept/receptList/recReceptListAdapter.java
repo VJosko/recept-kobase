@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vudrag.kobaserecept.ItemTouchHelperAdapter;
 import com.vudrag.kobaserecept.R;
 import com.vudrag.kobaserecept.classes.Recept;
+import com.vudrag.kobaserecept.databinding.ReceptListRowBinding;
+import com.vudrag.kobaserecept.databinding.ReceptRowBinding;
 
 import java.util.ArrayList;
 
@@ -28,19 +30,20 @@ public class recReceptListAdapter extends RecyclerView.Adapter<recReceptListAdap
             View.OnTouchListener,
             GestureDetector.OnGestureListener {
 
-        private TextView tvIme, tvDatum;
         OnReceptListener onReceptListener;
         GestureDetector gestureDetector;
+        ReceptListRowBinding binding;
 
-        public ViewHolder(@NonNull View view, OnReceptListener onReceptListener) {
-            super(view);
-            tvIme = view.findViewById(R.id.tv_ime);
-            tvDatum = view.findViewById(R.id.tv_datum);
+        public ViewHolder(@NonNull ReceptListRowBinding binding, OnReceptListener onReceptListener) {
+            super(binding.getRoot());
             this.onReceptListener = onReceptListener;
+            this.binding = binding;
 
-            gestureDetector = new GestureDetector(view.getContext(), this);
+            binding.btnEdit.setOnClickListener(v -> onReceptListener.onReceptEdit(getAdapterPosition()));
 
-            view.setOnTouchListener(this);
+            gestureDetector = new GestureDetector(binding.getRoot().getContext(), this);
+
+            binding.getRoot().setOnTouchListener(this);
         }
 
 
@@ -90,15 +93,16 @@ public class recReceptListAdapter extends RecyclerView.Adapter<recReceptListAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recept_list_row, parent, false);
-        return new ViewHolder(view, mOnReceptiListener);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        ReceptListRowBinding binding = ReceptListRowBinding.inflate(layoutInflater, parent, false);
+        return new ViewHolder(binding, mOnReceptiListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvIme.setText(recepti.get(position).getReceptInfo().getIme());
-        holder.tvDatum.setText(recepti.get(position).getReceptInfo().getDatumIzmjene());
+        Recept recept = recepti.get(position);
+        holder.binding.setRecept(recept);
+        holder.binding.executePendingBindings();
     }
 
     @Override
@@ -109,6 +113,7 @@ public class recReceptListAdapter extends RecyclerView.Adapter<recReceptListAdap
     public interface OnReceptListener{
         void onReceptClick(int position);
         void onReceptDelete(int position);
+        void onReceptEdit(int position);
     }
 
 

@@ -22,7 +22,7 @@ public class ReceptViewModel extends ViewModel {
     public String ime = "";
     Repository repository;
 
-    public ReceptViewModel() {
+    public ReceptViewModel(int position) {
         repository = Repository.getInstance();
         ArrayList<Sastojak> s = new ArrayList<>();
         s.add(new Sastojak("", "0"));

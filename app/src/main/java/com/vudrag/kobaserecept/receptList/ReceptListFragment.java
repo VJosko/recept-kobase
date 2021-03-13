@@ -1,5 +1,7 @@
 package com.vudrag.kobaserecept.receptList;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,8 @@ import android.view.ViewGroup;
 import com.vudrag.kobaserecept.R;
 import com.vudrag.kobaserecept.ReceptListItemTouchHelper;
 import com.vudrag.kobaserecept.databinding.FragmentReceptListBinding;
+
+import static android.content.ContentValues.TAG;
 
 
 public class ReceptListFragment extends Fragment implements recReceptListAdapter.OnReceptListener {
@@ -79,7 +84,26 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
 
     @Override
     public void onReceptDelete(int position) {
-        viewModel.deleteRecept(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Želite li izbrisati ovaj recept?");
+        builder.setTitle("Izbriši?");
+        builder.setPositiveButton("DA", (dialog, which) -> {
+            viewModel.deleteRecept(position);
+        });
+        builder.setNegativeButton("NE", (dialog, which) -> {
+            mAdapter.notifyItemChanged(position);
+        });
+        builder.setOnCancelListener(dialog -> {
+            mAdapter.notifyItemChanged(position);
+        });
+        builder.create().show();
+    }
+
+    @Override
+    public void onReceptEdit(int position) {
+        ReceptListFragmentDirections.ActionReceptListFragmentToReceptFragment action = ReceptListFragmentDirections.actionReceptListFragmentToReceptFragment();
+        action.setPosition(-1);
+        Navigation.findNavController(getView()).navigate(action);
     }
 
 

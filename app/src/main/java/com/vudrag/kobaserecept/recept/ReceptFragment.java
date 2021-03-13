@@ -23,6 +23,7 @@ import com.vudrag.kobaserecept.ReceptListItemTouchHelper;
 public class ReceptFragment extends Fragment implements recReceptAdapter.OnSastojakListener {
 
     private ReceptViewModel viewModel;
+    private ReceptViewModelFactory factory;
 
     private RecyclerView recyclerView;
     private recReceptAdapter mAdapter;
@@ -37,7 +38,8 @@ public class ReceptFragment extends Fragment implements recReceptAdapter.OnSasto
         View view = binding.getRoot();
 
         //ViewModel
-        viewModel = new ViewModelProvider(this).get(ReceptViewModel.class);
+        factory = new ReceptViewModelFactory(ReceptFragmentArgs.fromBundle(getArguments()).getPosition());
+        viewModel = new ViewModelProvider(this, factory).get(ReceptViewModel.class);
         binding.setViewModel(viewModel);
 
         //Recycler view
