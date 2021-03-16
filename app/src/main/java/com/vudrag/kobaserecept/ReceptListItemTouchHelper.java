@@ -1,5 +1,8 @@
 package com.vudrag.kobaserecept;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -8,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vudrag.kobaserecept.ItemTouchHelperAdapter;
 import com.vudrag.kobaserecept.R;
+
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator;
 
 public class ReceptListItemTouchHelper extends ItemTouchHelper.Callback {
 
@@ -48,7 +53,7 @@ public class ReceptListItemTouchHelper extends ItemTouchHelper.Callback {
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         final int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
-        final int swipeFlags = ItemTouchHelper.START;
+        final int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
         return makeMovementFlags(dragFlags, swipeFlags);
     }
 
@@ -63,5 +68,21 @@ public class ReceptListItemTouchHelper extends ItemTouchHelper.Callback {
         adapter.onItemSwiped(viewHolder.getAdapterPosition());
     }
 
-    
+    @Override
+    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+        new RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                .addSwipeLeftBackgroundColor(ContextCompat.getColor(viewHolder.itemView.getContext(),R.color.design_default_color_error))
+                .addSwipeLeftActionIcon(R.drawable.delete)
+                .addSwipeRightBackgroundColor(ContextCompat.getColor(viewHolder.itemView.getContext(), R.color.teal_700))
+                .addSwipeRightActionIcon(R.drawable.add)
+                .addSwipeRightLabel("Archive")
+                .setSwipeRightLabelColor(Color.WHITE)
+                .addSwipeLeftLabel("Delete")
+                .setSwipeLeftLabelColor(Color.WHITE)
+                .create()
+                .decorate();
+
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+    }
 }
