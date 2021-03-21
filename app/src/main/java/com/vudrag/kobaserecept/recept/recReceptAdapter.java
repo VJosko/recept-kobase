@@ -64,7 +64,7 @@ public class recReceptAdapter extends RecyclerView.Adapter<recReceptAdapter.View
 
         @Override
         public void onLongPress(MotionEvent e) {
-            touchHelper.startDrag(this);
+            //touchHelper.startDrag(this);
         }
 
         @Override

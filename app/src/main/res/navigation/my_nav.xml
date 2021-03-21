@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/receptFragment"
         android:name="com.vudrag.kobaserecept.recept.ReceptFragment"
-        android:label="fragment_recepti"
         tools:layout="@layout/fragment_recepti" >
         <action
             android:id="@+id/action_receptFragment_to_receptListFragment"
@@ -21,7 +20,6 @@
     <fragment
         android:id="@+id/kalkulatorFragment"
         android:name="com.vudrag.kobaserecept.kalkulator.KalkulatorFragment"
-        android:label="fragment_kalkulator"
         tools:layout="@layout/fragment_kalkulator" >
         <action
             android:id="@+id/action_kalkulatorFragment_to_receptListFragment"
@@ -34,13 +32,16 @@
     <fragment
         android:id="@+id/receptListFragment"
         android:name="com.vudrag.kobaserecept.receptList.ReceptListFragment"
-        android:label="fragment_recept_list"
+        android:label="Recepti"
         tools:layout="@layout/fragment_recept_list" >
         <action
             android:id="@+id/action_receptListFragment_to_kalkulatorFragment"
-            app:destination="@id/kalkulatorFragment" />
+            app:destination="@id/kalkulatorFragment"
+            app:enterAnim="@anim/fragment_open_enter" />
         <action
             android:id="@+id/action_receptListFragment_to_receptFragment"
-            app:destination="@id/receptFragment" />
+            app:destination="@id/receptFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
 </navigation>

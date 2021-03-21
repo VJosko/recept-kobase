@@ -10,7 +10,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.vudrag.kobaserecept.R;
 import com.vudrag.kobaserecept.ReceptListItemTouchHelper;
@@ -56,6 +59,7 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
         recyclerView = view.findViewById(R.id.rec_recepti);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         mAdapter = new recReceptListAdapter(viewModel.recepti.getValue(), this);
 
         ItemTouchHelper.Callback callback = new ReceptListItemTouchHelper(mAdapter);

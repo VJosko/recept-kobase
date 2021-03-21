@@ -49,8 +49,24 @@ public class Repository {
         }
     }
 
+    public void addSastojak(Sastojak sastojak){
+        receptDatabase.dao().insertSastojak(sastojak);
+    }
+
+    public void deleteSastojak(Sastojak sastojak){
+        receptDatabase.dao().deleteSastojak(sastojak);
+    }
+
     public void deleteRecept(ReceptInfo receptInfo){
         receptDatabase.dao().deleteInfo(receptInfo);
+    }
+
+    public void updateSastojak(Sastojak sastojak){
+        receptDatabase.dao().updateSastojak(sastojak);
+    }
+
+    public void updateInfo(ReceptInfo receptInfo){
+        receptDatabase.dao().updateInfo(receptInfo);
     }
 
     public ArrayList<Recept> getRecepte(){

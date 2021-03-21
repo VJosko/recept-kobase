@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -38,13 +39,17 @@ public class KalkulatorFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         //DataBinding
-        FragmentKalkulatorBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_kalkulator,container,false);
+        FragmentKalkulatorBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_kalkulator, container, false);
         View view = binding.getRoot();
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
         //ViewModel
         factory = new KalkulatorViewModelFactory(KalkulatorFragmentArgs.fromBundle(getArguments()).getReceptId());
         viewModel = new ViewModelProvider(this, factory).get(KalkulatorViewModel.class);
         binding.setViewModel(viewModel);
+
+        if (!viewModel.ime.equals(""))
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(viewModel.ime);
 
         //Recycler view
         recyclerView = view.findViewById(R.id.rec_kalkulator);
@@ -57,7 +62,7 @@ public class KalkulatorFragment extends Fragment {
             mAdapter = new recKalkulatorAdapter(viewModel.racunica.getValue());
             recyclerView.setAdapter(mAdapter);
         };
-        viewModel.racunica.observe(getViewLifecycleOwner(),racunicaObserver);
+        viewModel.racunica.observe(getViewLifecycleOwner(), racunicaObserver);
 
         return view;
     }

@@ -5,6 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.vudrag.kobaserecept.classes.Recept;
 import com.vudrag.kobaserecept.classes.ReceptInfo;
@@ -30,5 +31,14 @@ public interface Dao {
 
     @Delete
     void deleteInfo(ReceptInfo receptInfo);
+
+    @Delete
+    void deleteSastojak(Sastojak sastojak);
+
+    @Update
+    void updateInfo(ReceptInfo receptInfo);
+
+    @Update
+    void updateSastojak(Sastojak sastojak);
 
 }
