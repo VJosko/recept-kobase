@@ -44,4 +44,5 @@ dependencies {
     apply plugin: "androidx.navigation.safeargs"
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
 }

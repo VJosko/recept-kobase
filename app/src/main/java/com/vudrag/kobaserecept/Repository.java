@@ -76,4 +76,9 @@ public class Repository {
     public LiveData<List<Recept>> getLiveRecept(){
         return _recepti;
     }
+
+    public void refreshRecepte(){
+        _recepti = receptDatabase.dao().getRecepteList();
+    }
+
 }

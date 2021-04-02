@@ -1,10 +1,12 @@
 package com.vudrag.kobaserecept.recept;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -18,12 +20,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.vudrag.kobaserecept.R;
 import com.vudrag.kobaserecept.databinding.FragmentReceptiBinding;
 import com.vudrag.kobaserecept.ReceptListItemTouchHelper;
+
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
+
+import java.lang.reflect.Field;
 
 import static android.content.ContentValues.TAG;
 
@@ -37,9 +48,12 @@ public class ReceptFragment extends Fragment implements recReceptAdapter.OnSasto
     private recReceptAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
 
         int position = ReceptFragmentArgs.fromBundle(getArguments()).getPosition();
 
@@ -56,6 +70,32 @@ public class ReceptFragment extends Fragment implements recReceptAdapter.OnSasto
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Novi recept");
         } else
             ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Uređivanje recepta");
+
+        try {
+            int nightModeFlags = getContext().getResources().getConfiguration().uiMode &
+                    Configuration.UI_MODE_NIGHT_MASK;
+            int defaultColor = R.color.purple_200;
+            int focusedColor = R.color.teal_200;
+            switch (nightModeFlags){
+                case Configuration.UI_MODE_NIGHT_YES:
+                    defaultColor = R.color.purple_200;
+                    focusedColor = R.color.teal_200;
+                    break;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    defaultColor = R.color.purple_200;
+                    focusedColor = R.color.teal_200;
+                    break;
+            }
+            TextInputLayout textInputLayout = view.findViewById(R.id.txt_input_layout);
+            Field field = TextInputLayout.class.getDeclaredField("defaultStrokeColor");
+            field.setAccessible(true);
+            field.set(textInputLayout, ContextCompat.getColor(view.getContext(), defaultColor));
+            Field field1 = TextInputLayout.class.getDeclaredField("focusedStrokeColor");
+            field1.setAccessible(true);
+            field1.set(textInputLayout, ContextCompat.getColor(view.getContext(), defaultColor));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
 
         //Recycler view
@@ -85,6 +125,23 @@ public class ReceptFragment extends Fragment implements recReceptAdapter.OnSasto
             Navigation.findNavController(getView()).navigateUp();
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.save_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            UIUtil.hideKeyboard(getActivity());
+            viewModel.onSpremiRecept();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 
     @Override
     public void onSastojakDelete(int position) {

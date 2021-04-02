@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,23 +9,24 @@
             type="com.vudrag.kobaserecept.classes.Sastojak" />
     </data>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryVariant"
         android:orientation="horizontal"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:background="?attr/colorPrimaryVariant">
+        android:paddingEnd="16dp">
 
         <EditText
             android:id="@+id/txt_sastojak"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:hint="Naziv sastojka"
             android:backgroundTint="?attr/colorPrimaryVariant"
+            android:hint="Naziv sastojka"
             android:text="@={sastojak.ime}"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/txt_postotak"
@@ -32,16 +34,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="?attr/colorPrimaryVariant"
+            android:hint="0"
             android:inputType="numberDecimal"
             android:text="@={sastojak.omjer}"
-            android:hint="0"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="g/kg"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
     </LinearLayout>
 </layout>

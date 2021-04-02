@@ -8,6 +8,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import net.yslibrary.android.keyboardvisibilityevent.util.UIUtil;
+
 public class MainActivity extends AppCompatActivity {
 
     NavController navController;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        UIUtil.hideKeyboard(this);
         navController.navigateUp();
         return super.onSupportNavigateUp();
     }

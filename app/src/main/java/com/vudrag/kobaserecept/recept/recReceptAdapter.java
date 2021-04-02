@@ -79,7 +79,7 @@ public class recReceptAdapter extends RecyclerView.Adapter<recReceptAdapter.View
         }
     }
 
-    public recReceptAdapter(ArrayList<Sastojak> sastojci, OnSastojakListener onSastojakListener){
+    public recReceptAdapter(ArrayList<Sastojak> sastojci, OnSastojakListener onSastojakListener) {
         this.sastojci = sastojci;
         this.onSastojakListener = onSastojakListener;
     }
@@ -104,7 +104,7 @@ public class recReceptAdapter extends RecyclerView.Adapter<recReceptAdapter.View
         return sastojci.size();
     }
 
-    public interface OnSastojakListener{
+    public interface OnSastojakListener {
         void onSastojakDelete(int position);
     }
 
@@ -113,7 +113,7 @@ public class recReceptAdapter extends RecyclerView.Adapter<recReceptAdapter.View
         Sastojak sastojak = sastojci.get(fromPosition);
         sastojci.remove(sastojak);
         sastojci.add(toPosition, sastojak);
-        notifyItemMoved(fromPosition,toPosition);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class recReceptAdapter extends RecyclerView.Adapter<recReceptAdapter.View
         notifyItemRemoved(position);
     }
 
-    public void setTouchHelper(ItemTouchHelper touchHelper){
+    public void setTouchHelper(ItemTouchHelper touchHelper) {
         this.touchHelper = touchHelper;
     }
 }

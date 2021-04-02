@@ -28,16 +28,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="Količina mesa u kg:"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/txt_meso"
                 android:layout_width="128dp"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.meso}"
                 android:layout_marginStart="8dp"
-                android:hint="0"/>
+                android:hint="0"
+                android:inputType="numberDecimal"
+                android:maxLength="10"
+                android:text="@={viewModel.meso}" />
 
         </LinearLayout>
 
@@ -46,28 +47,67 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="?attr/colorSecondaryVariant"
-            app:layout_constraintTop_toBottomOf="@+id/lin1"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/lin1" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rec_kalkulator"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lin1" />
+            app:layout_constraintTop_toBottomOf="@id/lin1">
 
-        <Button
-            android:id="@+id/btn_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.racunanje()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="Izračunaj"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="?attr/colorSecondary"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_kalkulator"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:gravity="top"
+                        android:hint="Bilješke"
+                        android:inputType="textMultiLine"
+                        android:minHeight="150dp"
+                        android:text="@={viewModel.notes}"
+                        android:textSize="16sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btn_submit"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:onClick="@{() -> viewModel.racunanje()}"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            android:text="Izračunaj"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:backgroundTint="?attr/colorSecondary"/>-->
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

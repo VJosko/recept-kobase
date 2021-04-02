@@ -3,6 +3,7 @@ package com.vudrag.kobaserecept.recept;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -25,6 +26,7 @@ public class ReceptViewModel extends ViewModel {
     MutableLiveData<Integer> onReturn = new MutableLiveData<>();
     MutableLiveData<ArrayList<Sastojak>> sastojci = new MutableLiveData<>();
     public String ime = "";
+    public String notes = "";
     Repository repository;
 
     public ReceptViewModel(int position) {
@@ -36,9 +38,11 @@ public class ReceptViewModel extends ViewModel {
             s.add(new Sastojak("", ""));
             sastojci.setValue(s);
         } else {
-            ArrayList<Sastojak> s = new ArrayList<>(repository.getLiveRecept().getValue().get(position).getSastojci());
+            //ArrayList<Sastojak> s = new ArrayList<>(repository.getLiveRecept().getValue().get(position).getSastojci());
+            ArrayList<Sastojak> s = new ArrayList<>(repository.getRecepte().get(position).getSastojci());
             sastojci.setValue(s);
-            ime = repository.getLiveRecept().getValue().get(position).getReceptInfo().getIme();
+            ime = repository.getRecepte().get(position).getReceptInfo().getIme();
+            notes = repository.getRecepte().get(position).getReceptInfo().getKomentar();
         }
     }
 
@@ -54,7 +58,7 @@ public class ReceptViewModel extends ViewModel {
 
     public void onSpremiRecept() {
         if (position == -1) {
-            ReceptInfo receptInfo = new ReceptInfo(ime, getDate(), getDate(), "");
+            ReceptInfo receptInfo = new ReceptInfo(ime, getDate(), getDate(), notes);
             Recept recept = new Recept(receptInfo, sastojci.getValue());
             repository.addRecept(recept);
         } else updateRecept();
@@ -66,12 +70,13 @@ public class ReceptViewModel extends ViewModel {
     }
 
     public void updateRecept() {
-        ReceptInfo receptInfo = repository.getLiveRecept().getValue().get(position).getReceptInfo();
+        ReceptInfo receptInfo = repository.getRecepte().get(position).getReceptInfo();
         receptInfo.setIme(ime);
+        receptInfo.setKomentar(notes);
         receptInfo.setDatumIzmjene(getDate());
         repository.updateInfo(receptInfo);
         boolean exists = false;
-        for (Sastojak s1 : repository.getLiveRecept().getValue().get(position).getSastojci()) {
+        for (Sastojak s1 : repository.getRecepte().get(position).getSastojci()) {
             for (Sastojak s2 : sastojci.getValue()) {
                 if (s2.getSastojakId() != null) {
                     if (s1.getSastojakId().equals(s2.getSastojakId())) {
@@ -86,7 +91,7 @@ public class ReceptViewModel extends ViewModel {
         }
         for (Sastojak sastojak : sastojci.getValue()) {
             if (sastojak.getId() == null) {
-                sastojak.setId(repository.getLiveRecept().getValue().get(position).getReceptInfo().getId());
+                sastojak.setId(repository.getRecepte().get(position).getReceptInfo().getId());
                 repository.addSastojak(sastojak);
             } else repository.updateSastojak(sastojak);
         }

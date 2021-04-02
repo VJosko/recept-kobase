@@ -45,6 +45,7 @@ public class ReceptListFragment extends Fragment implements recReceptListAdapter
         //dataBinding
         FragmentReceptListBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_recept_list,container,false);
         View view = binding.getRoot();
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
         //ViewModel
         viewModel = new ViewModelProvider(this).get(ReceptListViewModel.class);

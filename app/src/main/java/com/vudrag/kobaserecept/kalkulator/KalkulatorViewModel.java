@@ -20,6 +20,7 @@ public class KalkulatorViewModel extends ViewModel {
     int receptId;
     public MutableLiveData<String> meso = new MutableLiveData<>();
     public String ime;
+    public String notes = "";
     private ArrayList<Recept> recepti;
     public MutableLiveData<ArrayList<Sastojak>> racunica = new MutableLiveData<>();
     Repository repository;
@@ -29,7 +30,8 @@ public class KalkulatorViewModel extends ViewModel {
         meso.setValue("");
         repository = Repository.getInstance();
         recepti = repository.getRecepte();
-        ime = repository.getLiveRecept().getValue().get(receptId).getReceptInfo().getIme();
+        ime = recepti.get(receptId).getReceptInfo().getIme();
+        notes = recepti.get(receptId).getReceptInfo().getKomentar();
         racunanje();
     }
 
@@ -49,4 +51,5 @@ public class KalkulatorViewModel extends ViewModel {
         }
         racunica.setValue(x);
     }
+
 }

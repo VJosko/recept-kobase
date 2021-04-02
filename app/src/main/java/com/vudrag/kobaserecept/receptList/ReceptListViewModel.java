@@ -35,17 +35,15 @@ public class ReceptListViewModel extends ViewModel {
         this.context = context;
     }
 
-    public void updateReceptArray(){
+    public void updateReceptArray() {
         recepti.getValue().clear();
-        if(repository.getLiveRecept().getValue() == null){
-            Log.d(TAG, "updateReceptArray: _______NULL");
-        }
-        for(Recept recept: repository.getLiveRecept().getValue()){
+        //if (repository.getLiveRecept().getValue() != null)
+        for (Recept recept : _recepti.getValue()) {
             recepti.getValue().add(recept);
         }
     }
 
-    public void deleteRecept(int position){
+    public void deleteRecept(int position) {
         repository.deleteRecept(recepti.getValue().get(position).getReceptInfo());
     }
 }
